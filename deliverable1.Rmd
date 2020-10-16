@@ -1,0 +1,84 @@
+---
+title: "Portfolio Project First Deliverable"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+## Introduction
+
+My research will be focused on the gender gap in computing and technology careers.I chose this topic because I want to bring awareness of the topic, and hopefully be a part of the solution to even out the statistics of women in technology and STEM careers. I have a very deep interest for this topic because I an a part of the very small percentage of hispanic women in Computer Science. 
+As a part of this research I want to predict how the gender gap will hopefully decrese in future years. 
+
+## Data Set
+
+The Data I will be using for this research is from the National Center for Women & Information Technology. NCWIT is a non-profit organization that works to increase the influence women have in the tech industry. 
+
+#### Variables in data set:
+
+`year` `int` : States the year that was measured. From 1989 to 2017.
+
+`women` `int` : Represents the number of women that have a degree in tech.
+
+`men` `int` : Represents the number of men that have a degree in tech.
+
+`perc_women_all_degrees` `double` : the percentage of women that have a degree in the tech field.
+
+`perc_ men of all_degrees` `double` : the percentage of men that have a degree in the tech field.
+
+`degree_type` `factor` : Variable used to describe what level of degree it is, AS for Associate's, BS for Bachelor's, MS for Master's and PhD for a Doctorate's.
+
+`ethniciy_race` `factor` : Describes the Race and or ethnicity of the person.
+
+```{r}
+data <- read.csv('phase1.csv')
+head(data)
+```
+
+## Explanatory Data Analysis
+This is a summary of the variables inside the data set
+
+```{r}
+summary(data)
+```
+
+```{r}
+
+ggplot(data) +
+  geom_point(mapping = aes(x= year, y= (men + women), alpha = men, colour = women)) +
+  facet_wrap(~(degree_type))
+```
+
+This graph is representing the difference in numbers between men and women that have degrees in tech, grouped by the type of degree they have.
+
+
+```{r}
+ggplot(data, mapping = aes(factor(ethniciy_race), perc_women_all_degrees, colour = degree_type))+
+  geom_jitter()
+ggplot(data, mapping = aes(factor(ethniciy_race), perc_men_all_degrees, colour = degree_type))+
+  geom_jitter()
+```
+
+These graphs representes the racial composition of womenand men with degrees in tech.
+
+```{r}
+ggplot(data)+
+  geom_violin(mapping = aes(x = degree_type, y = women))+
+  geom_boxplot(mapping = aes(x = degree_type, y = women), width = .5)
+```
+
+This graph represents how many women have an AS, BS, MS, or PhD 
+
+## Data Science Questions
+Based on the data set, there is an enourmous gender gap in degrees aquired throughout the years.
+My biggest question is how can I predict how long before the statistics of men and women in tech careers are almost equal. 
+Another question I have by looking at the few etnic groups represented in this data is, how can not only the gender gap be reduced but how can we diversify this field of study more. 
+The last question is how can I help younger generatons to persue a career in tech. 
+
+
+
+
